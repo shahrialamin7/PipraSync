@@ -11,15 +11,17 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.piprapay.companion.ui.theme.Primary
-import com.piprapay.companion.ui.theme.Background
+import com.piprapay.companion.ui.theme.White
 
 @Composable
 fun SyncButton(
@@ -28,23 +30,26 @@ fun SyncButton(
 ) {
     Row(
         modifier = modifier
-            .clip(RoundedCornerShape(24.dp))
+            .clip(RoundedCornerShape(20.dp))
             .background(Primary)
             .clickable(onClick = onClick)
-            .padding(horizontal = 20.dp, vertical = 12.dp),
+            .padding(horizontal = 10.dp, vertical = 5.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
+        // "Sync" text - 14sp, white, poppins_medium
         Text(
             text = "Sync",
-            style = MaterialTheme.typography.labelLarge,
-            color = Background
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Medium,
+            color = White
         )
-        Spacer(modifier = Modifier.width(8.dp))
+        Spacer(modifier = Modifier.width(5.dp))
+        // Refresh icon - 20dp, white
         Icon(
             imageVector = Icons.Default.Refresh,
             contentDescription = "Sync",
-            tint = Background,
-            modifier = Modifier.size(18.dp)
+            tint = White,
+            modifier = Modifier.size(20.dp)
         )
     }
 }

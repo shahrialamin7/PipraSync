@@ -9,13 +9,14 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Inbox
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.piprapay.companion.ui.theme.TextHint
+import androidx.compose.ui.unit.sp
+import com.piprapay.companion.ui.theme.TextTertiary
 
 @Composable
 fun EmptyState(
@@ -27,17 +28,20 @@ fun EmptyState(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
+        // Inbox icon - 80dp, grey7EMa tint
         Icon(
             imageVector = Icons.Default.Inbox,
             contentDescription = null,
             modifier = Modifier.size(80.dp),
-            tint = TextHint
+            tint = TextTertiary
         )
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(10.dp))
+        // "No message found" - 13sp, grey7EMa
         Text(
             text = message,
-            style = MaterialTheme.typography.bodyMedium,
-            color = TextHint
+            fontSize = 13.sp,
+            fontWeight = FontWeight.Normal,
+            color = TextTertiary
         )
     }
 }

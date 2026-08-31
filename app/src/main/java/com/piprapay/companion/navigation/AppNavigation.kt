@@ -1,12 +1,14 @@
 package com.piprapay.companion.navigation
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.BarChart
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Send
-import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -16,24 +18,30 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.piprapay.companion.R
 import com.piprapay.companion.ui.analytics.AnalyticsScreen
 import com.piprapay.companion.ui.home.HomeScreen
 import com.piprapay.companion.ui.login.LoginScreen
 import com.piprapay.companion.ui.permission.PermissionScreen
 import com.piprapay.companion.ui.senders.SendersScreen
 import com.piprapay.companion.ui.settings.SettingsScreen
-import com.piprapay.companion.ui.theme.CardBackground
+import com.piprapay.companion.ui.theme.Background
+import com.piprapay.companion.ui.theme.NavInactive
 import com.piprapay.companion.ui.theme.Primary
-import com.piprapay.companion.ui.theme.TextSecondary
-import com.piprapay.companion.ui.theme.ToggleOff
+import com.piprapay.companion.ui.theme.TextPrimary
 import com.piprapay.companion.ui.theme.White
 import com.piprapay.companion.ui.welcome.WelcomeScreen
 
@@ -50,9 +58,11 @@ sealed class Screen(val route: String) {
 data class BottomNavItem(
     val screen: Screen,
     val label: String,
-    val icon: ImageVector
+    val icon: ImageVector,
+    val selectedIcon: ImageVector? = null
 )
 
+// Using same icon for both states (would use custom drawables in full implementation)
 val bottomNavItems = listOf(
     BottomNavItem(Screen.Home, "Home", Icons.Default.Home),
     BottomNavItem(Screen.Senders, "Senders", Icons.Default.Send),
@@ -70,11 +80,37 @@ fun AppNavigation() {
         bottomNavItems.any { it.screen.route == dest.route }
     } == true
 
+    val showTopBar = showBottomBar // Show top bar when bottom bar is visible
+
     Scaffold(
+        topBar = {
+            if (showTopBar) {
+                // Top bar: CardView, 55dp height, piprapay_logo_color
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(55.dp),
+                    colors = CardDefaults.cardColors(containerColor = White),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.piprapay_logo_color),
+                        contentDescription = "PipraPay",
+                        modifier = Modifier
+                            .height(35.dp)
+                            .padding(horizontal = 13.dp)
+                            .padding(vertical = 4.dp)
+                    )
+                }
+            }
+        },
         bottomBar = {
             if (showBottomBar) {
+                // Bottom nav: 65dp height, white background
                 NavigationBar(
-                    containerColor = CardBackground
+                    modifier = Modifier.height(65.dp),
+                    containerColor = White,
+                    tonalElevation = 2.dp
                 ) {
                     bottomNavItems.forEach { item ->
                         val selected = currentDestination?.hierarchy?.any {
@@ -86,14 +122,15 @@ fun AppNavigation() {
                                 Icon(
                                     imageVector = item.icon,
                                     contentDescription = item.label,
-                                    tint = if (selected) Primary else TextSecondary
+                                    tint = if (selected) Primary else NavInactive
                                 )
                             },
                             label = {
                                 Text(
                                     text = item.label,
-                                    style = MaterialTheme.typography.labelSmall,
-                                    color = if (selected) Primary else TextSecondary
+                                    fontSize = 12.sp,
+                                    fontWeight = FontWeight.Medium,
+                                    color = if (selected) Primary else NavInactive
                                 )
                             },
                             selected = selected,
@@ -107,7 +144,7 @@ fun AppNavigation() {
                                 }
                             },
                             colors = NavigationBarItemDefaults.colors(
-                                indicatorColor = ToggleOff
+                                indicatorColor = Background
                             )
                         )
                     }

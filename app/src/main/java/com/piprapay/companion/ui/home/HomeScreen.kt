@@ -1,5 +1,6 @@
 package com.piprapay.companion.ui.home
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -7,11 +8,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -21,15 +24,19 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.piprapay.companion.ui.components.EmptyState
 import com.piprapay.companion.ui.components.MessageDetailSheet
 import com.piprapay.companion.ui.components.SmsCard
 import com.piprapay.companion.ui.components.SyncButton
-import com.piprapay.companion.ui.components.TabSelector
-import com.piprapay.companion.ui.theme.CardBackground
+import com.piprapay.companion.ui.theme.Background
 import com.piprapay.companion.ui.theme.TextPrimary
 import com.piprapay.companion.ui.theme.TextSecondary
+import com.piprapay.companion.ui.theme.TextTertiary
+import com.piprapay.companion.ui.theme.White
 
 data class SmsItem(
     val sender: String,
@@ -63,28 +70,36 @@ fun HomeScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .background(Background)
     ) {
+        // Greeting card - white_radius bg, 16dp horiz margins, 10dp top margin
         Card(
-            modifier = Modifier.fillMaxWidth(),
-            shape = MaterialTheme.shapes.medium,
-            colors = CardDefaults.cardColors(containerColor = CardBackground)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 10.dp),
+            shape = RoundedCornerShape(12.dp),
+            colors = CardDefaults.cardColors(containerColor = White),
+            elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
         ) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp),
+                    .padding(horizontal = 15.dp, vertical = 10.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Column(modifier = Modifier.weight(1f)) {
+                    // Greeting: 13sp, grey7EMa
                     Text(
-                        text = "Good Night,",
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = TextSecondary
+                        text = "Good Morning,",
+                        fontSize = 13.sp,
+                        fontWeight = FontWeight.Normal,
+                        color = TextTertiary
                     )
+                    // Username: poppins_medium
                     Text(
                         text = "Shahrial Amin",
-                        style = MaterialTheme.typography.titleLarge,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Medium,
                         color = TextPrimary
                     )
                 }
@@ -92,15 +107,26 @@ fun HomeScreen() {
             }
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        // Tab bar - 4 tabs, weightSum=4
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp)
+                .clip(RoundedCornerShape(12.dp))
+                .background(White)
+                .padding(horizontal = 5.dp, vertical = 8.dp)
+        ) {
+            tabs.forEachIndexed { index, tab ->
+                TabItem(
+                    text = tab,
+                    isSelected = selectedTab == index,
+                    onClick = { selectedTab = index },
+                    modifier = Modifier.weight(1f)
+                )
+            }
+        }
 
-        TabSelector(
-            tabs = tabs,
-            selectedTab = selectedTab,
-            onTabSelected = { selectedTab = it }
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(5.dp))
 
         if (filteredSms.isEmpty()) {
             val emptyMessage = when (selectedTab) {
@@ -112,7 +138,9 @@ fun HomeScreen() {
             }
             EmptyState(message = emptyMessage)
         } else {
-            LazyColumn {
+            LazyColumn(
+                modifier = Modifier.fillMaxSize()
+            ) {
                 items(filteredSms) { sms ->
                     SmsCard(
                         sender = sms.sender,
@@ -125,7 +153,6 @@ fun HomeScreen() {
                             showDetailSheet = true
                         }
                     )
-                    Spacer(modifier = Modifier.height(8.dp))
                 }
             }
         }
@@ -142,6 +169,30 @@ fun HomeScreen() {
                 showDetailSheet = false
                 selectedSms = null
             }
+        )
+    }
+}
+
+@Composable
+private fun TabItem(
+    text: String,
+    isSelected: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier
+            .padding(horizontal = 3.dp, vertical = 8.dp)
+            .clip(RoundedCornerShape(8.dp))
+            .background(if (isSelected) White else White)
+            .padding(vertical = 12.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = text,
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Medium,
+            color = TextTertiary
         )
     }
 }
