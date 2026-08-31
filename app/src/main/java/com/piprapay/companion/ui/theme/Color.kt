@@ -8,6 +8,7 @@ val PrimaryLight = Color(0xFF8B7CF7)
 val PrimaryDark = Color(0xFF5A4BD6)
 
 // Background
+val White = Color(0xFFFFFFFF)
 val Background = Color(0xFFFFFFFF)
 val CardBackground = Color(0xFFF8F9FA)
 val SurfaceVariant = Color(0xFFF3F4F6)
