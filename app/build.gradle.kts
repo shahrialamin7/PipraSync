@@ -4,12 +4,12 @@ plugins {
 
 android {
     namespace = "com.piprapay.companion"
-    compileSdk = 37
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.piprapay.companion"
         minSdk = 24
-        targetSdk = 37
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0.0"
     }
