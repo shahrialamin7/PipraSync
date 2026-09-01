@@ -16,14 +16,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.piprapay.companion.ui.theme.Background
 import com.piprapay.companion.ui.theme.TextPrimary
 import com.piprapay.companion.ui.theme.TextSecondary
-import com.piprapay.companion.ui.theme.TextTertiary
 import com.piprapay.companion.ui.theme.White
 
 @Composable
@@ -36,9 +34,19 @@ fun SmsCard(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    // Status badge colors - from APK screenshots
+    val statusColor = when (status.uppercase()) {
+        "STORED" -> Color(0xFF22C55E)   // Green
+        "PENDING" -> Color(0xFFFFC24B)  // Yellow/orange
+        "USED" -> Color(0xFF2280FF)     // Blue
+        "ERROR" -> Color(0xFFFF3800)    // Red
+        else -> Color(0xFFFF3800)
+    }
+
     Card(
         modifier = modifier
             .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 5.dp)
             .clickable(onClick = onClick),
         shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(containerColor = White),
@@ -63,16 +71,16 @@ fun SmsCard(
 
                 // SIM slot badge - 10sp, #555555, #F1F1F1 bg, 4dp padding
                 Text(
-                    text = "SIM $simSlot",
+                    text = "SIM: $simSlot",
                     fontSize = 10.sp,
                     fontWeight = FontWeight.Medium,
-                    color = TextSecondary,
+                    color = Color(0xFF555555),
                     modifier = Modifier
                         .background(
-                            color = Background,
+                            color = Color(0xFFF1F1F1),
                             shape = RoundedCornerShape(4.dp)
                         )
-                        .padding(horizontal = 4.dp, vertical = 2.dp)
+                        .padding(horizontal = 4.dp, vertical = 4.dp)
                 )
 
                 Spacer(modifier = Modifier.weight(1f))
@@ -82,7 +90,7 @@ fun SmsCard(
                     text = date,
                     fontSize = 10.sp,
                     fontWeight = FontWeight.Medium,
-                    color = TextSecondary
+                    color = Color(0xFF888888)
                 )
             }
 
@@ -93,21 +101,21 @@ fun SmsCard(
                 text = message,
                 fontSize = 13.sp,
                 fontWeight = FontWeight.Medium,
-                color = TextPrimary,
+                color = Color(0xFF333333),
                 modifier = Modifier.fillMaxWidth()
             )
 
             Spacer(modifier = Modifier.height(6.dp))
 
-            // Row 3: Status badge - 10sp, white text, #FF3800 bg
+            // Row 3: Status badge - 10sp, white text, colored bg per status
             Text(
-                text = status,
+                text = status.uppercase(),
                 fontSize = 10.sp,
                 fontWeight = FontWeight.Medium,
                 color = White,
                 modifier = Modifier
                     .background(
-                        color = Color(0xFFFF3800),
+                        color = statusColor,
                         shape = RoundedCornerShape(12.dp)
                     )
                     .padding(horizontal = 10.dp, vertical = 5.dp)

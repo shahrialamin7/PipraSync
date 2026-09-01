@@ -19,8 +19,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.piprapay.companion.R
@@ -100,12 +103,17 @@ fun WelcomeScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Privacy text - 14sp, greyMa
+            // Privacy text - 14sp, greyMa with bold purple "Privacy Policy"
             Text(
-                text = "By continuing you agree to our Privacy Policy",
+                text = buildAnnotatedString {
+                    withStyle(style = SpanStyle(color = TextSecondary, fontWeight = FontWeight.Normal)) {
+                        append("By continuing you agree to our ")
+                    }
+                    withStyle(style = SpanStyle(color = Primary, fontWeight = FontWeight.Bold)) {
+                        append("Privacy Policy")
+                    }
+                },
                 fontSize = 14.sp,
-                fontWeight = FontWeight.Normal,
-                color = TextSecondary,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.padding(bottom = 28.dp)
             )

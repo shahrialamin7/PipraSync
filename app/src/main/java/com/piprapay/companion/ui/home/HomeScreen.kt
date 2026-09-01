@@ -1,6 +1,7 @@
 package com.piprapay.companion.ui.home
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -25,6 +26,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -184,15 +187,21 @@ private fun TabItem(
         modifier = modifier
             .padding(horizontal = 3.dp, vertical = 8.dp)
             .clip(RoundedCornerShape(8.dp))
-            .background(if (isSelected) White else White)
-            .padding(vertical = 12.dp),
+            .background(if (isSelected) White else Color.Transparent)
+            .then(
+                if (isSelected) Modifier.shadow(4.dp, RoundedCornerShape(8.dp))
+                else Modifier
+            )
+            .background(if (isSelected) White else Color.Transparent)
+            .padding(vertical = 12.dp)
+            .clickable(onClick = onClick),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             text = text,
             fontSize = 14.sp,
             fontWeight = FontWeight.Medium,
-            color = TextTertiary
+            color = if (isSelected) TextPrimary else TextTertiary
         )
     }
 }

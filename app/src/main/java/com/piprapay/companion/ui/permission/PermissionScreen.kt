@@ -33,9 +33,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.piprapay.companion.R
-import com.piprapay.companion.ui.theme.Background
 import com.piprapay.companion.ui.theme.ButtonDisabled
-import com.piprapay.companion.ui.theme.Divider
+import com.piprapay.companion.ui.theme.DividerLight
 import com.piprapay.companion.ui.theme.Primary
 import com.piprapay.companion.ui.theme.TextPrimary
 import com.piprapay.companion.ui.theme.TextSecondary
@@ -53,7 +52,7 @@ fun PermissionScreen(
             .fillMaxSize()
             .background(White)
     ) {
-        // Top toolbar - 60dp height
+        // Top toolbar - 60dp height, white bg, bottom divider
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -66,28 +65,28 @@ fun PermissionScreen(
                     .padding(horizontal = 16.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                // Back arrow placeholder
-                Text(
-                    text = "<",
-                    fontSize = 24.sp,
-                    color = TextPrimary
+                // Back arrow - exact APK drawable (40dp circle with border)
+                Image(
+                    painter = painterResource(id = R.drawable.ic_back_arrow_pay),
+                    contentDescription = "Back",
+                    modifier = Modifier.size(40.dp)
                 )
 
                 Spacer(modifier = Modifier.weight(1f))
 
-                // Title: "We Need Access" - 20sp, poppins_medium
+                // Title: "We Need Access" - 20sp, poppins_medium, centered
                 Text(
                     text = "We Need Access",
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Medium,
                     color = TextPrimary,
-                    modifier = Modifier.padding(end = 40.dp)
+                    modifier = Modifier.padding(end = 56.dp)
                 )
             }
 
             // Divider - 1dp, #F3F3F3
             HorizontalDivider(
-                color = Divider,
+                color = DividerLight,
                 thickness = 1.dp
             )
         }
@@ -98,9 +97,9 @@ fun PermissionScreen(
                 .weight(1f)
                 .verticalScroll(rememberScrollState())
         ) {
-            // Info icon - 35dp, main_color tint
+            // Press icon - exact APK drawable (35dp, main_color tint)
             Image(
-                painter = painterResource(id = R.drawable.main_logo),
+                painter = painterResource(id = R.drawable.press),
                 contentDescription = "Info",
                 modifier = Modifier
                     .size(35.dp)
@@ -109,7 +108,7 @@ fun PermissionScreen(
 
             // Description text - 15sp, #262626
             Text(
-                text = "PipraPay Enterprise Companion requires access to your SMS messages to securely archive and sync business messages for your organization's CRM and back-office systems.\n\nWe process only pre-approved, system-generated messages from whitelisted business senders. All data is processed locally on your device and transmitted securely to your enterprise dashboard. Personal SMS, OTPs, and call logs are never accessed.\n\nYou can view which messages are synced via the app log for full transparency. Access is required for enterprise record-keeping and audit purposes.",
+                text = "PipraPay Enterprise Companion requires access to your SMS messages to securely archive and sync business messages for your organization's CRM and back-office systems.\nWe process only pre-approved, system-generated messages from whitelisted business senders. All data is processed locally on your device and transmitted securely to your enterprise dashboard. Personal SMS, OTPs, and call logs are never accessed.\nYou can view which messages are synced via the app log for full transparency. Access is required for enterprise record-keeping and audit purposes.",
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Normal,
                 color = TextPrimary,
@@ -176,7 +175,7 @@ fun PermissionScreen(
                 )
             }
 
-            // Footer: "Secure. Private. Trusted."
+            // Footer: "Secure. Private. Trusted." - 14sp, bold, black
             Text(
                 text = "Secure. Private. Trusted.",
                 fontSize = 14.sp,

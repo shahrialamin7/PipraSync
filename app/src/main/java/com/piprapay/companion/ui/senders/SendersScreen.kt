@@ -1,5 +1,6 @@
 package com.piprapay.companion.ui.senders
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -24,6 +25,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -98,14 +100,11 @@ fun SendersScreen() {
                     )
                 }
 
-                // Updating icon - 43dp
-                Text(
-                    text = "↻",
-                    fontSize = 32.sp,
-                    color = TextSecondary,
-                    modifier = Modifier
-                        .size(43.dp)
-                        .padding(10.dp)
+                // Refresh icon - exact APK drawable (43dp)
+                Image(
+                    painter = painterResource(id = R.drawable.updating),
+                    contentDescription = "Update Senders",
+                    modifier = Modifier.size(43.dp)
                 )
             }
         }

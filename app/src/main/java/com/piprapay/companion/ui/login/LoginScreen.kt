@@ -3,14 +3,12 @@ package com.piprapay.companion.ui.login
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -27,19 +25,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.piprapay.companion.R
-import com.piprapay.companion.ui.theme.Background
 import com.piprapay.companion.ui.theme.Divider
 import com.piprapay.companion.ui.theme.InputBorder
 import com.piprapay.companion.ui.theme.Primary
 import com.piprapay.companion.ui.theme.TextPrimary
 import com.piprapay.companion.ui.theme.TextSecondary
+import com.piprapay.companion.ui.theme.White
 
 @Composable
 fun LoginScreen(
@@ -51,19 +48,20 @@ fun LoginScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(White)
             .verticalScroll(rememberScrollState())
             .padding(horizontal = 16.dp)
     ) {
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Back arrow placeholder (would be IconButton in full implementation)
-        Text(
-            text = "<",
-            fontSize = 24.sp,
-            color = TextPrimary,
-            modifier = Modifier.padding(bottom = 8.dp)
+        // Back arrow - exact APK drawable ic_back_arrow_pay (40dp circle)
+        Image(
+            painter = painterResource(id = R.drawable.ic_back_arrow_pay),
+            contentDescription = "Back",
+            modifier = Modifier.size(40.dp)
         )
+
+        Spacer(modifier = Modifier.height(16.dp))
 
         // Title: "Login your account" - 23sp, poppins_semibold
         Text(
@@ -76,7 +74,7 @@ fun LoginScreen(
         // Subtitle: greyMa
         Text(
             text = "Welcome back, Sign in to your account",
-            fontSize = 14.sp,
+            fontSize = 16.sp,
             fontWeight = FontWeight.Normal,
             color = TextSecondary,
             modifier = Modifier.padding(top = 4.dp)
@@ -84,10 +82,10 @@ fun LoginScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Payment Panel URL label
+        // Payment Panel URL label - 16sp poppins_regular
         Text(
             text = "Payment Panel URL",
-            fontSize = 14.sp,
+            fontSize = 16.sp,
             fontWeight = FontWeight.Normal,
             color = TextPrimary
         )
@@ -110,10 +108,10 @@ fun LoginScreen(
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        // One Time Password label
+        // One Time Password label - 16sp poppins_regular
         Text(
             text = "One Time Password",
-            fontSize = 14.sp,
+            fontSize = 16.sp,
             fontWeight = FontWeight.Normal,
             color = TextPrimary
         )
@@ -151,46 +149,29 @@ fun LoginScreen(
                 text = "Login",
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Medium,
-                color = Background
+                color = White
             )
         }
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        // OR divider
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            HorizontalDivider(
-                modifier = Modifier.weight(1f),
-                color = Divider,
-                thickness = 1.dp
-            )
-            Text(
-                text = "OR",
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Normal,
-                color = TextSecondary,
-                modifier = Modifier.padding(horizontal = 12.dp)
-            )
-            HorizontalDivider(
-                modifier = Modifier.weight(1f),
-                color = Divider,
-                thickness = 1.dp
-            )
-        }
+        // OR divider - exact APK ic_or_pay drawable
+        Image(
+            painter = painterResource(id = R.drawable.ic_or_pay),
+            contentDescription = "OR",
+            modifier = Modifier.fillMaxWidth()
+        )
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        // QR Code section
+        // QR Code section - exact APK layout
         Column(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // QR icon container
+            // Fingerprint icon in circle - exact APK ic_fp_pay (70dp)
             Image(
-                painter = painterResource(id = R.drawable.main_logo),
+                painter = painterResource(id = R.drawable.ic_fp_pay),
                 contentDescription = "QR Login",
                 modifier = Modifier.size(70.dp)
             )
@@ -199,7 +180,7 @@ fun LoginScreen(
 
             Text(
                 text = "Or log in with QR code",
-                fontSize = 14.sp,
+                fontSize = 16.sp,
                 fontWeight = FontWeight.Normal,
                 color = TextPrimary,
                 textAlign = TextAlign.Center,
