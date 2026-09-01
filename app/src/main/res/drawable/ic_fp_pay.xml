@@ -2,5 +2,12 @@
 <vector android:height="139.0dip" android:width="137.0dip" android:viewportWidth="137.0" android:viewportHeight="139.0"
   xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt">
     <path android:fillColor="@color/main_color" android:pathData="M69,69m-50,0a50,50 0,1 1,100 0a50,50 0,1 1,-100 0" />
-    <path android:fillColor="@drawable/$ic_fp_pay__0" android:pathData="M137,68.5C137,106.33 106.33,137 68.5,137C30.67,137 0,106.33 0,68.5C0,30.67 30.67,0 68.5,0C106.33,0 137,30.67 137,68.5ZM4.44,68.5C4.44,103.88 33.12,132.56 68.5,132.56C103.88,132.56 132.56,103.88 132.56,68.5C132.56,33.12 103.88,4.44 68.5,4.44C33.12,4.44 4.44,33.12 4.44,68.5Z" />
+    <path android:pathData="M137,68.5C137,106.33 106.33,137 68.5,137C30.67,137 0,106.33 0,68.5C0,30.67 30.67,0 68.5,0C106.33,0 137,30.67 137,68.5ZM4.44,68.5C4.44,103.88 33.12,132.56 68.5,132.56C103.88,132.56 132.56,103.88 132.56,68.5C132.56,33.12 103.88,4.44 68.5,4.44C33.12,4.44 4.44,33.12 4.44,68.5Z">
+        <aapt:attr name="android:fillColor">
+            <gradient android:angle="0.0" android:type="linear" android:startX="69.07" android:startY="-386.66" android:endX="69.07" android:endY="148.32">
+                <item android:color="@color/main_color" android:offset="0.0" />
+                <item android:color="#002969ff" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
 </vector>
