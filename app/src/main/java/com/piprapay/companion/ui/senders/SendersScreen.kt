@@ -29,6 +29,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.piprapay.companion.R
 import com.piprapay.companion.ui.components.SenderCard
 import com.piprapay.companion.ui.theme.Background
 import com.piprapay.companion.ui.theme.TextPrimary
