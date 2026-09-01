@@ -1,6 +1,6 @@
 package com.piprapay.companion.ui.analytics
 
-import androidx.compose.foundation.Arrangement
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
